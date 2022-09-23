@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Options;
+﻿using instaapp_backend.Core.IConfiguration;
+using instaapp_backend.Services.JwtServices;
+using Microsoft.Extensions.Options;
 
 namespace instaapp_backend.Helper.Middlewares
 {
@@ -13,7 +15,7 @@ namespace instaapp_backend.Helper.Middlewares
             _appSetting = appSetting.Value;
         }
 
-        public async Task Invoke(HttpContext context, IUnitOfWork unitOfWork, IJwtUtils jwtUtils)
+        public async Task Invoke(HttpContext context, IUnitOfWork unitOfWork, IJwtServices jwtUtils)
         {
             try
             {
@@ -21,7 +23,7 @@ namespace instaapp_backend.Helper.Middlewares
                 var userId = jwtUtils.ValidateJwtToken(token, context);
                 if (userId != null)
                 {
-                    context.Items["Company"] = await unitOfWork.Companis.GetAsync((long)userId);
+                    context.Items["User"] = await unitOfWork.Users.GetAsync((long)userId);
                 }
             }
             catch

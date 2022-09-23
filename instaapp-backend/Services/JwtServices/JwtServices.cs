@@ -1,4 +1,5 @@
 ﻿using instaapp_backend.Helper;
+using instaapp_backend.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,7 +15,7 @@ namespace instaapp_backend.Services.JwtServices
         {
             _appSetting = appSetting.Value;
         }
-        public string GenerateJwtToken(Company company, HttpContext httpContext)
+        public string GenerateJwtToken(User user, HttpContext httpContext)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSetting.Secret);
@@ -22,7 +23,7 @@ namespace instaapp_backend.Services.JwtServices
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim("id", company.Id.ToString())
+                    new Claim("id", user.Id.ToString())
                 }),
                 Expires = DateTime.Now.AddHours(12),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

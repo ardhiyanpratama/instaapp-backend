@@ -1,4 +1,6 @@
 ﻿using instaapp_backend.Core.IRepositories;
+using instaapp_backend.Data;
+using instaapp_backend.Models;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,11 +8,11 @@ namespace instaapp_backend.Core.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected OTPContext _context;
+        protected InstaContext _context;
         protected readonly ILogger _logger;
         protected DbSet<T> dbSet;
 
-        public GenericRepository(OTPContext context, ILogger logger)
+        public GenericRepository(InstaContext context, ILogger logger)
         {
             _context = context;
             _logger = logger;

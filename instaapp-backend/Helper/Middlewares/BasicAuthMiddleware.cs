@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using instaapp_backend.Core.IConfiguration;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace instaapp_backend.Helper.Middlewares
@@ -21,9 +22,9 @@ namespace instaapp_backend.Helper.Middlewares
                 var credentials = Encoding.UTF8.GetString(credentialBytes).Split(':', 2);
                 var username = credentials[0];
                 var apiKey = credentials[1];
-                var user = await unitOfWork.Companis.AuthenticateUsingApiKeyAsync(username, apiKey);
+                //var user = await unitOfWork.Companis.AuthenticateUsingApiKeyAsync(username, apiKey);
 
-                context.Items["Company"] = user;
+                //context.Items["User"] = user;
             }
             catch (Exception ex)
             {
