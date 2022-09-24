@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+    api:
+        container_name: instaapp-service-backend
+        restart: always
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        ports:
+            - 80:80
+        environment:
+            - APSNETCORE_ENVIRONMENT=Production
+    postgres:
+        image: postgres:13.4
+        environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=P@ssw0rdMG
+        restart: unless-stopped
+        ports:
+          - "5432:5432"
+        volumes:
+          - "./postgres/data:/var/lib/postgresql/data:delegated"

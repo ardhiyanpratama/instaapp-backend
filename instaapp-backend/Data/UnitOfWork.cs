@@ -12,6 +12,7 @@ namespace instaapp_backend.Data
         private readonly InstaContext _context;
         private readonly ILogger _logger;
         public IUserRepository Users { get; private set; }
+        public IPostingRepository Posting { get; private set; }
 
         public UnitOfWork(InstaContext context, ILoggerFactory logger, IPasswordHasher<User> passwordHasher, IHttpClientFactory httpClientFactory)
         {
@@ -19,6 +20,7 @@ namespace instaapp_backend.Data
             _logger = logger.CreateLogger("logs");
 
             Users = new UserRepository(context, _logger, passwordHasher);
+            Posting = new PostingRepository(context, _logger);
         }
 
         public async Task CompleteAsync()

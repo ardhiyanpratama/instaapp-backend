@@ -18,6 +18,7 @@ using Microsoft.OpenApi.Models;
 using ScottBrady91.AspNetCore.Identity;
 using System.Text;
 using System.Text.Json.Serialization;
+using instaapp_backend.Helper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -105,6 +106,7 @@ builder.Services.AddAuthorization(
         .RequireAuthenticatedUser()
         .Build();
     });
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddSingleton<IJwtServices, JwtServices>();
 builder.Services.AddSingleton<IPasswordHasher<User>, Argon2PasswordHasher<User>>();
